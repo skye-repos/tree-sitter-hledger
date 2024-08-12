@@ -1,0 +1,29 @@
+* Tree Sitter for Hledger
+
+A basic tree-sitter grammar file for hledger. Currently supported
+
+- Journal Entries with
+  - Dates
+  - Status
+  - Codes
+  - Descriptions
+    - Notes
+  - Transactions with
+    - Accounts & Sub-accounts
+    - Currencies
+    - Amounts w/ decimals
+- Comments
+  - Inline
+  - Multi-line
+* To be added
+- [ ] Commodity Symbols - simple & complex
+- [ ] Unit & Whole rates
+- [ ] Directives
+  - [ ] account with type
+  - [ ] valid commodity
+  - [ ] decimal-mark
+  - [ ] payee
+  - [ ] tags
+  - [ ] market prices
+  - [ ] auto-posting rules
+  - [ ] recurring transactions
