@@ -1,0 +1,20 @@
+; Comment Style 1
+# Comment Style 2
+comment
+This is a test
+multiline comment
+end comment
+
+2024-08-05 Description
+    expenses:food:zomato   ₹ 100.00
+    expenses:travel        ₹ 200.02
+    assets                ₹ -300.02
+
+2024-08-04 * (1234) Test Entry
+    expenses:travel          100.00
+    expenses:gst             *0.17%
+    assets:savings
+
+2024-05-04 ! Payee's acc | This is a note
+    income:stuff           -100.00
+    assets:savings
