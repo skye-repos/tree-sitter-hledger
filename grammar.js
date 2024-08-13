@@ -1,14 +1,15 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-module.exports = grammar ({
+module.exports = grammar({
 	name: 'hledger',
 
 	rules: {
 		source_file: $ => repeat(choice($.journal_entry, $.comment)),
-		
+
 		journal_entry: $ => seq(
 			$.date,
+			optional("\n"),
 			seq(optional($.status), optional($.code), optional($.description), "\n"),
 			// choice(/[\s+]\n/, seq(optional($.status), optional($.code), optional($.description), "\n")),
 			repeat($.transactions),
@@ -17,25 +18,19 @@ module.exports = grammar ({
 
 		transactions: $ => seq(
 			$.account,
-			seq(
-				optional($.currency),
-				$.amount,
-			),
+			$.amount,
 			"\n"
 		),
 
 		balancing: $ => seq(
 			$.account,
-			seq(
-				optional($.currency),
-				optional($.amount),
-			),
+			optional($.amount),
 			"\n"
 		),
 
 		date: $ => {
 			function createDate(separator) {
-				return seq(optional(seq($.year, separator)) , $.month, separator, $.day);
+				return seq(optional(seq($.year, separator)), $.month, separator, $.day);
 			}
 			return choice(createDate("-"), createDate("/"), createDate("."));
 		},
@@ -59,8 +54,15 @@ module.exports = grammar ({
 		),
 		subaccount: $ => /:[a-z ]+/,
 
-		currency: $ => /[₹$]/,
-		amount: $ => /[-\*\d][.\d\%]+/,
+		amount: $ => choice(
+			seq($.currency, $.value),
+			seq($.value, choice($.commodity, $.complex_commodity)),
+			$.value,
+		),
+		currency: $ => choice("₹", "$", "INR", "USD"),
+		commodity: $ => /[a-zA-Z]+/,
+		complex_commodity: $ => /\"[^\"]*\"/,
+		value: $ => /[-\*\d][.\d\%]+/,
 
 		comment: $ => choice(
 			$.inline_comment,
@@ -72,7 +74,7 @@ module.exports = grammar ({
 			repeat(/[^\n\r]+/),
 			"end comment\n"
 		),
-		
+
 		inline_comment: $ => seq(
 			choice(";", "#"),
 			/[^\n\r]+/,

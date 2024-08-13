@@ -11,7 +11,8 @@ end comment
     assets                ₹ -300.02
 
 2024-08-04 * (1234) Test Entry
-    expenses:travel          100.00
+    expenses:travel          100.00 gold
+    expenses:travel          200.00 "gold ingots"
     expenses:gst             *0.17%
     assets:savings
 

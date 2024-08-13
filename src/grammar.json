@@ -25,6 +25,18 @@
           "name": "date"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "\n"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SEQ",
           "members": [
             {
@@ -90,25 +102,8 @@
           "name": "account"
         },
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "currency"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "amount"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "amount"
         },
         {
           "type": "STRING",
@@ -124,31 +119,14 @@
           "name": "account"
         },
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "currency"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "amount"
             },
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "amount"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+              "type": "BLANK"
             }
           ]
         },
@@ -368,11 +346,80 @@
       "type": "PATTERN",
       "value": ":[a-z ]+"
     },
-    "currency": {
-      "type": "PATTERN",
-      "value": "[₹$]"
-    },
     "amount": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "currency"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "value"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "value"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "commodity"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "complex_commodity"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        }
+      ]
+    },
+    "currency": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "₹"
+        },
+        {
+          "type": "STRING",
+          "value": "$"
+        },
+        {
+          "type": "STRING",
+          "value": "INR"
+        },
+        {
+          "type": "STRING",
+          "value": "USD"
+        }
+      ]
+    },
+    "commodity": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z]+"
+    },
+    "complex_commodity": {
+      "type": "PATTERN",
+      "value": "\\\"[^\\\"]*\\\""
+    },
+    "value": {
       "type": "PATTERN",
       "value": "[-\\*\\d][.\\d\\%]+"
     },

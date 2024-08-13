@@ -15,6 +15,33 @@
     }
   },
   {
+    "type": "amount",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "commodity",
+          "named": true
+        },
+        {
+          "type": "complex_commodity",
+          "named": true
+        },
+        {
+          "type": "currency",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "balancing",
     "named": true,
     "fields": {},
@@ -28,10 +55,6 @@
         },
         {
           "type": "amount",
-          "named": true
-        },
-        {
-          "type": "currency",
           "named": true
         }
       ]
@@ -55,6 +78,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "currency",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "date",
@@ -193,10 +221,6 @@
         {
           "type": "amount",
           "named": true
-        },
-        {
-          "type": "currency",
-          "named": true
         }
       ]
     }
@@ -211,6 +235,10 @@
   },
   {
     "type": "#",
+    "named": false
+  },
+  {
+    "type": "$",
     "named": false
   },
   {
@@ -234,8 +262,12 @@
     "named": false
   },
   {
-    "type": "amount",
-    "named": true
+    "type": "INR",
+    "named": false
+  },
+  {
+    "type": "USD",
+    "named": false
   },
   {
     "type": "code",
@@ -246,7 +278,11 @@
     "named": false
   },
   {
-    "type": "currency",
+    "type": "commodity",
+    "named": true
+  },
+  {
+    "type": "complex_commodity",
     "named": true
   },
   {
@@ -258,11 +294,19 @@
     "named": true
   },
   {
+    "type": "value",
+    "named": true
+  },
+  {
     "type": "year",
     "named": true
   },
   {
     "type": "|",
+    "named": false
+  },
+  {
+    "type": "₹",
     "named": false
   }
 ]
