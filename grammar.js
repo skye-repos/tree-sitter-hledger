@@ -5,7 +5,12 @@ module.exports = grammar({
 	name: 'hledger',
 
 	rules: {
-		source_file: $ => repeat(choice($.journal_entry, $.comment)),
+		source_file: $ => repeat(choice($.declarations, $.journal_entry, $.comment)),
+
+    declarations: $ => choice(
+      seq("include", /[a-z \.]+/, optional($.inline_comment)),
+      seq($.account, /w/, $.inline_comment)
+    ),
 
 		journal_entry: $ => seq(
 			$.date,
