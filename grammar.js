@@ -19,7 +19,8 @@ module.exports = grammar({
 		transactions: $ => seq(
 			$.account,
 			$.amount,
-			"\n"
+			"\n",
+      optional(seq($.comment, "\n"))
 		),
 
 		balancing: $ => seq(
@@ -43,13 +44,13 @@ module.exports = grammar({
 		code: $ => /\(\d+\)/,
 		// description: $ => /\s+[a-zA-Z \']+/,
 		description: $ => seq(
-			/\s+[a-zA-Z \']+/,
+			/\s+[a-zA-Z \' \& \- \\]+/,
 			optional($.note),
 		),
 		note: $ => seq("|", /\s+[a-zA-Z \']+/),
 
 		account: $ => seq(
-			/[a-z ]+/,
+			/[a-z 0-9]+/,
 			optional(repeat($.subaccount))
 		),
 		subaccount: $ => /:[a-z ]+/,
