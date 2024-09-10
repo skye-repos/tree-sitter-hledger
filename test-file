@@ -17,5 +17,5 @@ end comment
     assets:savings
 
 2024-05-04 ! Payee's acc | This is a note
-    income:stuff           -100.00
+    income:stuff:4007          -100.00
     assets:savings

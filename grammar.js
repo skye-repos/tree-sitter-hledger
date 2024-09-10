@@ -60,7 +60,7 @@ module.exports = grammar({
 			/[a-z 0-9]+/,
 			optional(repeat($.subaccount))
 		),
-		subaccount: $ => /:[a-z ]+/,
+		subaccount: $ => /:[a-z0-9]+/,
 
 		amount: $ => choice(
 			seq($.currency, $.value),

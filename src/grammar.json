@@ -408,7 +408,7 @@
     },
     "subaccount": {
       "type": "PATTERN",
-      "value": ":[a-z ]+"
+      "value": ":[a-z0-9]+"
     },
     "amount": {
       "type": "CHOICE",
