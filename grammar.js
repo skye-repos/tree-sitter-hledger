@@ -8,7 +8,7 @@ module.exports = grammar({
 		source_file: $ => repeat(choice($.declarations, $.journal_entry, $.comment)),
 
     declarations: $ => choice(
-      seq("include", /[a-z \.]+/, optional($.inline_comment)),
+      seq(/include/, /[a-z \.]+/),
       seq($.account, /w/, $.inline_comment)
     ),
 
@@ -21,12 +21,14 @@ module.exports = grammar({
 			$.balancing
 		),
 
-		transactions: $ => seq(
-			$.account,
-			$.amount,
-			"\n",
-      optional(seq($.comment, "\n"))
-		),
+		transactions: $ => prec(2,
+      seq(
+		    $.account,
+			  $.amount,
+			  "\n",
+        optional(seq($.comment, "\n"))
+		  )
+    ),
 
 		balancing: $ => seq(
 			$.account,

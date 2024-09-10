@@ -8,6 +8,10 @@
         "members": [
           {
             "type": "SYMBOL",
+            "name": "declarations"
+          },
+          {
+            "type": "SYMBOL",
             "name": "journal_entry"
           },
           {
@@ -16,6 +20,41 @@
           }
         ]
       }
+    },
+    "declarations": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "include"
+            },
+            {
+              "type": "PATTERN",
+              "value": "[a-z \\.]+"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "account"
+            },
+            {
+              "type": "PATTERN",
+              "value": "w"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "inline_comment"
+            }
+          ]
+        }
+      ]
     },
     "journal_entry": {
       "type": "SEQ",
@@ -95,21 +134,46 @@
       ]
     },
     "transactions": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "account"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "amount"
-        },
-        {
-          "type": "STRING",
-          "value": "\n"
-        }
-      ]
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "account"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "amount"
+          },
+          {
+            "type": "STRING",
+            "value": "\n"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "comment"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "\n"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "balancing": {
       "type": "SEQ",
@@ -289,7 +353,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "\\s+[a-zA-Z \\']+"
+          "value": "\\s+[a-zA-Z \\' \\& \\- \\\\]+"
         },
         {
           "type": "CHOICE",
@@ -323,7 +387,7 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "[a-z ]+"
+          "value": "[a-z 0-9]+"
         },
         {
           "type": "CHOICE",
